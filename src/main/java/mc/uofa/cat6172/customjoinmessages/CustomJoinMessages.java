@@ -20,9 +20,13 @@ public class CustomJoinMessages extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        TextComponent joinmessage = Component.text("Hello, " + event.getPlayer().getName() + "!", NamedTextColor.YELLOW);
+        String playername = event.getPlayer().getName();
+        TextComponent joinmessage = Component.text(playername + " has joined the game with the DEFAULT join message", NamedTextColor.YELLOW);
+        if (playername.equals("Cat6172")){
+            joinmessage = Component.text(playername + " has joined the game with a SPECIAL join message", NamedTextColor.YELLOW);
+        }
+
         event.joinMessage(joinmessage);
-        Bukkit.broadcastMessage("Bukkit message");
     }
 
 }
