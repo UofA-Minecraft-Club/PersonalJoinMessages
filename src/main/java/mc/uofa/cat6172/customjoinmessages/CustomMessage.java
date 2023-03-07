@@ -5,18 +5,14 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class CustomMessage {
-    private String playername = "";
-    private String prefix = "";
-    private String postfix;
+    public TextComponent message;
     private NamedTextColor messageColor = NamedTextColor.YELLOW;
-    private NamedTextColor namecolor = messageColor;
+    public CustomMessage(String playerName, String message_raw, String nameColorCode){
+        String[] message_components = message_raw.split("<name>");
 
-    public CustomMessage(String playername, boolean join){
-        this.playername = playername;
-        if (join) postfix = " has joined the game";
-        else postfix = " has left the game";
+        NamedTextColor nameColor = messageColor;
+
+        message = Component.text(message_components[0], messageColor).append(Component.text(playerName, nameColor).append(Component.text(message_components[1], messageColor)));
     }
-    public TextComponent getMessage(){
-        return Component.text(prefix, messageColor).append(Component.text(playername, namecolor).append(Component.text(postfix, messageColor)));
-    }
+
 }

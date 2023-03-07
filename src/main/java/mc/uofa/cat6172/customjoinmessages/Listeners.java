@@ -12,14 +12,14 @@ public class Listeners implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         String playername = event.getPlayer().getName();
-        CustomMessage joinmessage = new CustomMessage(playername, true);
-        event.joinMessage(joinmessage.getMessage());
+        CustomMessage joinmessage = new CustomMessage(playername, "<name> has joined the game", "idk");
+        event.joinMessage(joinmessage.message);
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerQuitEvent event) {
         String playername = event.getPlayer().getName();
-        CustomMessage leavemessage = new CustomMessage(playername, false);
-        event.quitMessage(leavemessage.getMessage());
+        CustomMessage leavemessage = new CustomMessage(playername, "<name> has left the game", "idk");
+        event.quitMessage(leavemessage.message);
     }
 }
