@@ -1,6 +1,9 @@
 package mc.uofa.cat6172.customjoinmessages;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +20,9 @@ public class CustomJoinMessages extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage(Component.text("Hello, " + event.getPlayer().getName() + "!"));
+        TextComponent joinmessage = Component.text("Hello, " + event.getPlayer().getName() + "!", NamedTextColor.YELLOW);
+        event.joinMessage(joinmessage);
+        Bukkit.broadcastMessage("Bukkit message");
     }
 
 }
