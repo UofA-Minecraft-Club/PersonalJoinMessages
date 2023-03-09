@@ -12,5 +12,4 @@ public class Listeners implements Listener {
             event.joinMessage(MessageStorage.getJoinMessage(playerName));
         }
     }
-
 }

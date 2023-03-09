@@ -7,7 +7,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/src/main/java/resources/META-INF/MANIFEST.MF" />
         </element>
         <element id="module-output" name="CustomJoinMessages.main" />
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/resources/paper-plugin.yml" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/resources/plugin.yml" />
       </element>
     </root>
   </artifact>

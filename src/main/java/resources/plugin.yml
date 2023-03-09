@@ -1,0 +1,15 @@
+name: CustomJoinMessages
+version: '0.0.0'
+main: mc.uofa.cat6172.customjoinmessages.CustomJoinMessages
+description: Custom join messages for some players of the UofA MC server
+author: Ilya Nalivaiko (Cat6172)
+api-version: '1.19'
+
+commands:
+  joinmessage:
+    description: customise a players join message
+    permission: joinmessage.admin
+permissions:
+  joinmessage.admin:
+    description: allows customising a player's join message
+    default: op
