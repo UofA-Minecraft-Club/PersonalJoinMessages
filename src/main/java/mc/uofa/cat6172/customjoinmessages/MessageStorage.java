@@ -12,8 +12,8 @@ import java.util.HashMap;
 
 public class MessageStorage {
     private static final NamedTextColor messageColor = NamedTextColor.YELLOW;
-    private static CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
-    private static FileConfiguration config = c.getConfig();
+    private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
+    private static final FileConfiguration config = c.getConfig();
     private static HashMap<String, String> joinMessages;
 
     public static void loadJoinMessages(){
@@ -41,7 +41,7 @@ public class MessageStorage {
     }
 
     public static void listJoinMessages(){
-        Communication.sendConsole("Custom messages availabe for: " + joinMessages.keySet().toString());
+        Communication.sendConsole("Custom messages availabe for: " + joinMessages.keySet());
     }
 
     public static boolean hasCustomJoinMessage(String playerName){

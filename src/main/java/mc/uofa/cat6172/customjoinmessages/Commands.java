@@ -1,6 +1,5 @@
 package mc.uofa.cat6172.customjoinmessages;
 
-import mc.uofa.cat6172.customjoinmessages.MessageStorage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
