@@ -8,6 +8,7 @@ api-version: '1.19'
 commands:
   joinmessage:
     description: customise a players join message
+    usage: /joinmessage [set playername message] or [remove playername] or [list]
     permission: joinmessage.admin
 permissions:
   joinmessage.admin:

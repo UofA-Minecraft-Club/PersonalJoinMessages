@@ -4,6 +4,6 @@ import org.bukkit.Bukkit;
 
 public class Communication {
     public static void sendConsole(String message){
-        Bukkit.getConsoleSender().sendMessage("JOINMESSAGES: " + message);
+        Bukkit.getConsoleSender().sendMessage("§3JOINMESSAGES: " + message);
     }
 }

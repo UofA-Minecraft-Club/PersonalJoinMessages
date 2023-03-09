@@ -29,7 +29,7 @@ public class MessageStorage {
     }
 
     public static void listJoinMessages(){
-        Communication.sendConsole("Messages availabe for: " + joinMessages.keySet().toString());
+        Communication.sendConsole("Custom messages availabe for: " + joinMessages.keySet().toString());
     }
 
     public static boolean hasCustomJoinMessage(String playerName){
