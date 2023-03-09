@@ -19,6 +19,7 @@ public class Commands implements CommandExecutor {
             MessageStorage.removeJoinMessage(args[1]);
             return true;
         } else if (args[0].equals("list")){
+            if (args.length != 1) return false;
             MessageStorage.listJoinMessages();
             return true;
         }
