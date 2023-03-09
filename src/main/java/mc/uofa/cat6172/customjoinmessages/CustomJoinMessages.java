@@ -8,7 +8,10 @@ public class CustomJoinMessages extends JavaPlugin {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(listeners, this);
+        this.saveDefaultConfig();
         MessageStorage.loadJoinMessages();
         getCommand("joinmessage").setExecutor(new Commands());
+
     }
+
 }

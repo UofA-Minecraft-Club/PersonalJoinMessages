@@ -1,6 +1,5 @@
 package mc.uofa.cat6172.customjoinmessages;
 
-import mc.uofa.cat6172.customjoinmessages.MessageStorage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,6 +18,7 @@ public class Commands implements CommandExecutor {
             MessageStorage.removeJoinMessage(args[1]);
             return true;
         } else if (args[0].equals("list")){
+            if (args.length != 1) return false;
             MessageStorage.listJoinMessages();
             return true;
         }

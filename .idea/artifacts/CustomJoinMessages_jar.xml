@@ -8,6 +8,7 @@
         </element>
         <element id="module-output" name="CustomJoinMessages.main" />
         <element id="file-copy" path="$PROJECT_DIR$/src/main/java/resources/plugin.yml" />
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/resources/config.yml" />
       </element>
     </root>
   </artifact>
