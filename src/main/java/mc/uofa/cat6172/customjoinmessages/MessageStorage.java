@@ -24,7 +24,7 @@ public class MessageStorage {
         Communication.sendConsole("Loaded " + joinMessages.size() + " custom messages from file");
     }
     public static void setJoinMessage(String playerName, String message_raw){
-        String message = message_raw.replace("_", " ");
+        String message = message_raw.replace("_", " ").replace("\\&", "§");
         joinMessages.put(playerName, message);
         config.set("JoinDB."+playerName, message);
         c.saveConfig();
