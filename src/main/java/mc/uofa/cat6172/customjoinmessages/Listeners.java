@@ -8,7 +8,7 @@ public class Listeners implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         String playerName = event.getPlayer().getName();
-        if (MessageStorage.hasCustomJoinMessage(playerName)){
+        if (MessageStorage.hasJoinMessage(playerName)){
             event.joinMessage(MessageStorage.getJoinMessage(playerName));
         }
     }

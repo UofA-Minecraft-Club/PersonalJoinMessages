@@ -9,8 +9,12 @@ public class CustomJoinMessages extends JavaPlugin {
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(listeners, this);
         this.saveDefaultConfig();
-        MessageStorage.loadJoinMessages();
-        getCommand("joinmessage").setExecutor(new Commands());
+        try{
+            getCommand("joinmessage").setExecutor(new Commands());
+        } catch (NullPointerException e){
+            throw new Error("Commands failed to initialize, this is likely a problem with plugin.yml file");
+        }
+
 
     }
 
