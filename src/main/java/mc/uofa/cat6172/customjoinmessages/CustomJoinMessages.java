@@ -9,13 +9,19 @@ public class CustomJoinMessages extends JavaPlugin {
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(listeners, this);
         this.saveDefaultConfig();
+        checkErrors();
+    }
+
+    private void checkErrors() {
         try{
             getCommand("joinmessage").setExecutor(new Commands());
         } catch (NullPointerException e){
-            throw new Error("Commands failed to initialize, this is likely a problem with plugin.yml file");
+            throw new Error("Commands failed to initialize, this is likely an internal problem with plugin.yml file");
         }
 
-
+        if (this.getConfig().getConfigurationSection("JoinDB") == null){
+            throw new Error("Custom join messages failed to initialize, does the config file contain JoinDB section?");
+        }
     }
 
 }

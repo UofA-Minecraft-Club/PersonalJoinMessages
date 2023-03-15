@@ -18,17 +18,15 @@ public class MessageStorage {
         String message = message_raw.replace("_", " ").replace("\\&", "§");
         config.set("JoinDB."+playerName, message);
         c.saveConfig();
-        Communication.sendConsole("Set " + playerName + "'s message to: \"" + message + "\"");
     }
     public static TextComponent getJoinMessage(String playerName){
-        String fallback = "No join message exists for given player: " + playerName;
+        String fallback = "ERROR: No join message exists for given player: " + playerName;
         String message = config.getString("JoinDB." + playerName, fallback);
         return Component.text(message, messageColor);
     }
     public static void removeJoinMessage(String playerName){
         config.set("JoinDB."+playerName, null);
         c.saveConfig();
-        Communication.sendConsole("Removed custom join message for " + playerName);
     }
     public static Collection<String> getPlayers(){
         try{
@@ -38,9 +36,6 @@ public class MessageStorage {
         }
     }
     public static boolean hasJoinMessage(String playerName){
-        boolean has = config.getString("JoinDB."+playerName) != null;
-        if (has) Communication.sendConsole("Found custom join message for " + playerName);
-        else Communication.sendConsole("No custom join message for " + playerName);
-        return has;
+        return config.getString("JoinDB."+playerName) != null;
     }
 }
