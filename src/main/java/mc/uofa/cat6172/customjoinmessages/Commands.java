@@ -29,7 +29,7 @@ public class Commands implements CommandExecutor {
                 case "get" -> {
                     String playerName = args[1];
                     TextComponent message = MessageStorage.getJoinMessage(playerName);
-                    Communication.sendCommandSender(message.toString(), sender);
+                    Communication.sendCommandSender(message.content(), sender);
                     return true;
                 }
                 case "list" -> {
