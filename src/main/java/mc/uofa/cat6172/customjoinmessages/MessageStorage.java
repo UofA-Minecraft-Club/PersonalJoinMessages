@@ -26,7 +26,7 @@ public class MessageStorage {
         c.getConfig().set("JoinDB."+playerName, null);
         c.saveConfig();
     }
-    public static Collection<String> getPlayers(){
+    public static Collection<String> getJoinPlayers(){
         try{
             return c.getConfig().getConfigurationSection("JoinDB").getKeys(false);
         } catch (NullPointerException e){
@@ -34,6 +34,30 @@ public class MessageStorage {
         }
     }
     public static boolean hasJoinMessage(String playerName){
-        return c.getConfig().getString("JoinDB."+playerName) != null;
+        return c.getConfig().getString("QuitDB."+playerName) != null;
+    }
+    public static void setQuitMessage(String playerName, String message_raw){
+        String message = message_raw.replace("_", " ").replace("\\&", "§");
+        c.getConfig().set("QuitDB."+playerName, message);
+        c.saveConfig();
+    }
+    public static TextComponent getQuitMessage(String playerName){
+        String fallback = "ERROR: No leave message exists for given player: " + playerName;
+        String message = c.getConfig().getString("QuitDB." + playerName, fallback);
+        return Component.text(message, messageColor);
+    }
+    public static void removeQuitMessage(String playerName){
+        c.getConfig().set("QuitDB."+playerName, null);
+        c.saveConfig();
+    }
+    public static Collection<String> getQuitPlayers(){
+        try{
+            return c.getConfig().getConfigurationSection("QuitDB").getKeys(false);
+        } catch (NullPointerException e){
+            return Collections.emptySet();
+        }
+    }
+    public static boolean hasQuitMessage(String playerName){
+        return c.getConfig().getString("QuitDB."+playerName) != null;
     }
 }
