@@ -8,9 +8,9 @@ public class Communication {
     public static void sendConsole(String message){
         Bukkit.getConsoleSender().sendMessage("§3JOINMESSAGES: " + message);
     }
-    public static void sendCommandSender(String message,  CommandSender reciver){
-        if (reciver instanceof Player){
-            reciver.sendMessage(message);
+    public static void sendCommandSender(String message,  CommandSender receiver){
+        if (receiver instanceof Player){
+            receiver.sendMessage(message);
         } else {
             sendConsole(message);
         }
