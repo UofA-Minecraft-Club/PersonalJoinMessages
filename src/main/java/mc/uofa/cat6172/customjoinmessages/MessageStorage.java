@@ -13,12 +13,19 @@ public class MessageStorage {
     private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
     public static String getGroupColor(Player player){
         ConfigurationSection groupColors = c.getConfig().getConfigurationSection("GroupColors");
-        for (String groupName: groupColors.getKeys(false)) {
-            if (player.hasPermission(groupName+".group")){
-                return groupColors.getString(groupName);
+        try{
+            for (String groupName: groupColors.getKeys(false)) {
+                if (player.hasPermission(groupName+".group")){
+                    return groupColors.getString(groupName);
+                }
             }
         }
+        catch (NullPointerException e){
+            Communication.sendConsole("Potential error: no groups found in config. Group colors will not be applied");
+            return messageColor;
+        }
         return messageColor;
+
     }
     public static void setJoinMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
