@@ -1,5 +1,7 @@
 package mc.uofa.cat6172.customjoinmessages;
 
+//This whole thing was written by ChatGPT
+
 import java.sql.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -47,10 +49,17 @@ public class SQLMessageStorage {
 
     public void setItem(String key, String value) throws SQLException {
         int intKey = hash(key);
-        PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO mytable (id, value) VALUES (?, ?)");
+        PreparedStatement insertStmt = conn.prepareStatement("INSERT OR REPLACE INTO mytable (id, value) VALUES (?, ?)");
         insertStmt.setInt(1, intKey);
         insertStmt.setString(2, value);
         insertStmt.executeUpdate();
+    }
+
+    public void removeItem(String key) throws SQLException {
+        int intKey = hash(key);
+        PreparedStatement deleteStmt = conn.prepareStatement("DELETE FROM mytable WHERE id = ?");
+        deleteStmt.setInt(1, intKey);
+        deleteStmt.executeUpdate();
     }
 
     public boolean checkItem(String key) throws SQLException {

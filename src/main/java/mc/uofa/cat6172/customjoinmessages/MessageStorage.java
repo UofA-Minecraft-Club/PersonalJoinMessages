@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -12,37 +13,57 @@ import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 public class MessageStorage {
     private static final NamedTextColor messageColor = NamedTextColor.YELLOW;
     private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
-    private SQLMessageStorage joinDB;
-    private SQLMessageStorage leaveDB;
+    private static SQLMessageStorage joinDB;
+    private static SQLMessageStorage leaveDB;
 
-    public static void loadMessages(){
+    public static void loadMessages() throws SQLException {
         joinDB = new SQLMessageStorage("join_messages.sqlite");
         leaveDB = new SQLMessageStorage("leave_messages.sqlite");
     }
 
     public static void setJoinMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
-        c.getConfig().set("JoinDB."+playerName, message);
-        c.saveConfig();
+        try {
+            joinDB.setItem(playerName, message);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     public static TextComponent getJoinMessage(String playerName){
-        String fallback = "ERROR: No join message exists for given player: " + playerName;
-        String message = c.getConfig().getString("JoinDB." + playerName, fallback);
+        String message;
+        String fallback = "No join message exists for given player: " + playerName;
+        try {
+            message = joinDB.getItem(playerName);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        if (message == null) message = fallback;
         return Component.text(message, messageColor);
     }
     public static void removeJoinMessage(String playerName){
-        c.getConfig().set("JoinDB."+playerName, null);
-        c.saveConfig();
-    }
-    public static Collection<String> getJoinPlayers(){
-        try{
-            return c.getConfig().getConfigurationSection("JoinDB").getKeys(false);
-        } catch (NullPointerException e){
-            return Collections.emptySet();
+        try {
+            joinDB.removeItem(playerName);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
+    public static Collection<String> getJoinPlayers(){
+        Collection<String> players;
+        try {
+            players = joinDB.listKeys();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return players;
+    }
     public static boolean hasJoinMessage(String playerName){
-        return c.getConfig().getString("JoinDB."+playerName) != null;
+        boolean hasMessage;
+        try {
+            hasMessage = joinDB.checkItem(playerName);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return hasMessage;
     }
     public static void setQuitMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
