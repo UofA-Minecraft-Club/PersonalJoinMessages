@@ -29,8 +29,8 @@ public class CustomJoinMessages extends JavaPlugin {
         if (this.getConfig().getConfigurationSection("QuitDB") == null){
             throw new Error("Custom quit messages failed to initialize, does the config file contain QuitDB section?");
         }
-        if (this.getConfig().getConfigurationSection("Groups") == null){
-            throw new Error("Groups failed to initialize, does the config file contain Groups section?");
+        if (this.getConfig().getConfigurationSection("GroupColors") == null){
+            throw new Error("Group colors failed to initialize, does the config file contain GroupColors section?");
         }
     }
 

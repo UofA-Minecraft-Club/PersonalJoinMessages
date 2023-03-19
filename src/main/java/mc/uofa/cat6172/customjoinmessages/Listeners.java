@@ -11,8 +11,9 @@ public class Listeners implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        String groupColor = MessageStorage.getGroupColor(player);
         if (MessageStorage.hasJoinMessage(player.getName())){
-            event.joinMessage(Component.text(MessageStorage.getJoinMessage(player.getName(), "")));
+            event.joinMessage(Component.text(MessageStorage.getJoinMessage(player.getName(), groupColor)));
         }
     }
     @EventHandler

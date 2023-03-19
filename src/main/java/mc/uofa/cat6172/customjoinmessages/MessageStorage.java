@@ -1,23 +1,37 @@
 package mc.uofa.cat6172.customjoinmessages;
 
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
+
 import java.util.Collection;
 import java.util.Collections;
 
 import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
 public class MessageStorage {
-    private static final String messageColor = "§3";//TODO change to yellow
+    private static final String messageColor = "§e"; //yellow
     private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
+    public static String getGroupColor(Player player){
+        ConfigurationSection groupColors = c.getConfig().getConfigurationSection("GroupColors");
+        for (String groupName: groupColors.getKeys(false)) {
+            if (player.hasPermission(groupName+".group")){
+                return groupColors.getString(groupName);
+            }
+        }
+        return messageColor;
+    }
     public static void setJoinMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
         c.getConfig().set("JoinDB."+playerName, message);
         c.saveConfig();
     }
-    public static String getJoinMessage(String playerName, @NotNull String group){
+    public static String getJoinMessage(String playerName, String groupColorCode){
         String fallback = "ERROR: No join message exists for given player: " + playerName;
         String message = c.getConfig().getString("JoinDB." + playerName, fallback);
         message = messageColor + message;
+        if (!groupColorCode.equals(messageColor) && !groupColorCode.equals("")){
+            message = message.replace(playerName, "§"+groupColorCode+playerName+messageColor);
+        }
         return message;
     }
     public static void removeJoinMessage(String playerName){

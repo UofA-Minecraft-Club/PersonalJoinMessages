@@ -1,6 +1,5 @@
 package mc.uofa.cat6172.customjoinmessages;
 
-import net.kyori.adventure.text.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,7 +42,7 @@ public class Commands implements CommandExecutor {
                 case "get" -> {
                     String playerName = args[1];
                     String message;
-                    if (join) message = MessageStorage.getJoinMessage(playerName, null);
+                    if (join) message = MessageStorage.getJoinMessage(playerName, "");
                     else message = MessageStorage.getQuitMessage(playerName);
                     Communication.sendCommandSender(message, sender);
                     return true;

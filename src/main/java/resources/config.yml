@@ -1,3 +1,5 @@
 JoinDB: {}
 QuitDB: {}
-Groups: {}
+GroupColors:
+  moderator: 4
+  helper: 3
