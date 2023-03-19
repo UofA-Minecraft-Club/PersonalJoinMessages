@@ -42,10 +42,10 @@ public class Commands implements CommandExecutor {
                 }
                 case "get" -> {
                     String playerName = args[1];
-                    TextComponent message;
-                    if (join) message = MessageStorage.getJoinMessage(playerName);
+                    String message;
+                    if (join) message = MessageStorage.getJoinMessage(playerName, null);
                     else message = MessageStorage.getQuitMessage(playerName);
-                    Communication.sendCommandSender(message.content(), sender);
+                    Communication.sendCommandSender(message, sender);
                     return true;
                 }
                 case "list" -> {
