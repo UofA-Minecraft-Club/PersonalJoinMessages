@@ -8,11 +8,11 @@ public class CustomJoinMessages extends JavaPlugin {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(listeners, this);
-        this.saveDefaultConfig();
-        checkErrors();
-    }
-
-    private void checkErrors() {
+        try{
+            MessageStorage.loadMessages();
+        } catch (Exception e){
+            Communication.sendConsole("Error accessing the database: " + e.getMessage());
+        }
         try{
             getCommand("joinmessage").setExecutor(new Commands());
         } catch (NullPointerException e){
@@ -23,12 +23,5 @@ public class CustomJoinMessages extends JavaPlugin {
         } catch (NullPointerException e){
             throw new Error("Command leavemessage failed to initialize, this is likely an internal problem with plugin.yml file");
         }
-        if (this.getConfig().getConfigurationSection("JoinDB") == null){
-            throw new Error("Custom join messages failed to initialize, does the config file contain JoinDB section?");
-        }
-        if (this.getConfig().getConfigurationSection("QuitDB") == null){
-            throw new Error("Custom quit messages failed to initialize, does the config file contain QuitDB section?");
-        }
     }
-
 }

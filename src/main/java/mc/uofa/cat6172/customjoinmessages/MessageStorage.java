@@ -12,6 +12,14 @@ import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 public class MessageStorage {
     private static final NamedTextColor messageColor = NamedTextColor.YELLOW;
     private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
+    private SQLMessageStorage joinDB;
+    private SQLMessageStorage leaveDB;
+
+    public static void loadMessages(){
+        joinDB = new SQLMessageStorage("join_messages.sqlite");
+        leaveDB = new SQLMessageStorage("leave_messages.sqlite");
+    }
+
     public static void setJoinMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
         c.getConfig().set("JoinDB."+playerName, message);
