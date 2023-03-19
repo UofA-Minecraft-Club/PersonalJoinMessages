@@ -8,7 +8,7 @@ api-version: '1.19'
 commands:
   joinmessage:
     description: customise a players join message
-    usage: /joinmessage [set playername message] or [remove playername] or [get playername] or [list]
+    usage: /joinmessage [set playername message] or [remove playername] or [get playername] or [list] or [reload]
     permission: joinmessage.admin
   leavemessage:
     description: customise a players leave message

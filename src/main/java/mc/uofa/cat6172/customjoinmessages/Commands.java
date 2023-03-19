@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 
+import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
+
 public class Commands implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -51,6 +53,10 @@ public class Commands implements CommandExecutor {
                     if (join) messageOwners = MessageStorage.getJoinPlayers();
                     else messageOwners = MessageStorage.getQuitPlayers();
                     Communication.sendCommandSender(messageOwners.toString(), sender);
+                    return true;
+                }
+                case "reload" -> {
+                    getPlugin(CustomJoinMessages.class).reloadConfig();
                     return true;
                 }
             }
