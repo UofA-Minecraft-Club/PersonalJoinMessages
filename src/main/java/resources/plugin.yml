@@ -1,5 +1,5 @@
 name: CustomJoinMessages
-version: '0.0.0'
+version: '1.0'
 main: mc.uofa.cat6172.customjoinmessages.CustomJoinMessages
 description: Custom join messages for some players of the UofA MC server
 author: Ilya Nalivaiko (Cat6172)
