@@ -34,7 +34,7 @@ public class MessageStorage {
         }
     }
     public static boolean hasJoinMessage(String playerName){
-        return c.getConfig().getString("QuitDB."+playerName) != null;
+        return c.getConfig().getString("JoinDB."+playerName) != null;
     }
     public static void setQuitMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
