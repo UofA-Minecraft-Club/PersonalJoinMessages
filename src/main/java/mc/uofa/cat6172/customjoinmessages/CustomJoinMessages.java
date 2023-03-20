@@ -12,7 +12,7 @@ public class CustomJoinMessages extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(listeners, this);
         try{
             MessageStorage.loadMessages();
-        } catch (SQLException e){
+        } catch (Exception e){
             throw new RuntimeException(e);
         }
         try{
