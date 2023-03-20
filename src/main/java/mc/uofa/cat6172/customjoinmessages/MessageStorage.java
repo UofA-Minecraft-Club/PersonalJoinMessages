@@ -5,6 +5,8 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,13 +15,15 @@ import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
 public class MessageStorage {
     private static final NamedTextColor messageColor = NamedTextColor.YELLOW;
+    private static final String datafolder = "custom_messages\\";
     private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
     private static SQLHashtable joinDB;
     private static SQLHashtable leaveDB;
 
     public static void loadMessages() throws SQLException, IOException, ClassNotFoundException {
-        joinDB = new SQLHashtable("join_messages.sqlite", "join_table", "join_messages.keys");
-        leaveDB = new SQLHashtable("leave_messages.sqlite", "leave_table", "leave_messages.keys");
+        Files.createDirectories(Paths.get(datafolder));
+        joinDB = new SQLHashtable(datafolder+"join_messages.sqlite", "join_table", datafolder+"join_messages.keys");
+        leaveDB = new SQLHashtable(datafolder+"leave_messages.sqlite", "leave_table", datafolder+"leave_messages.keys");
     }
 
     public static void setJoinMessage(String playerName, String message_raw){
