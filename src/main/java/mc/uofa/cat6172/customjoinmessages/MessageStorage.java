@@ -9,22 +9,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.Collections;
-
-import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
 public class MessageStorage {
     private static final NamedTextColor messageColor = NamedTextColor.YELLOW;
-    private static final String datafolder = "custom_messages\\";
-    private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
+    private static final String datafolder = "custom_join_leave_messages\\";
     private static SQLHashtable joinDB;
-    private static SQLHashtable leaveDB;
+    private static SQLHashtable quitDB;
 
     public static void loadMessages() throws SQLException, IOException, ClassNotFoundException {
         Files.createDirectories(Paths.get(datafolder));
         joinDB = new SQLHashtable(datafolder+"join_messages.sqlite", "join_table", datafolder+"join_messages.keys");
-        leaveDB = new SQLHashtable(datafolder+"leave_messages.sqlite", "leave_table", datafolder+"leave_messages.keys");
+        quitDB = new SQLHashtable(datafolder+"leave_messages.sqlite", "leave_table", datafolder+"leave_messages.keys");
     }
+
+
 
     public static void setJoinMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
@@ -58,28 +56,38 @@ public class MessageStorage {
     public static boolean hasJoinMessage(String playerName){
         return joinDB.keys.contains(playerName);
     }
+
+
     public static void setQuitMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
-        c.getConfig().set("QuitDB."+playerName, message);
-        c.saveConfig();
+        try {
+            quitDB.setItem(playerName, message);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public static TextComponent getQuitMessage(String playerName){
-        String fallback = "ERROR: No leave message exists for given player: " + playerName;
-        String message = c.getConfig().getString("QuitDB." + playerName, fallback);
+        String message;
+        String fallback = "No leave message exists for given player: " + playerName;
+        try {
+            message = quitDB.getItem(playerName);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        if (message == null) message = fallback;
         return Component.text(message, messageColor);
     }
     public static void removeQuitMessage(String playerName){
-        c.getConfig().set("QuitDB."+playerName, null);
-        c.saveConfig();
-    }
-    public static Collection<String> getQuitPlayers(){
-        try{
-            return c.getConfig().getConfigurationSection("QuitDB").getKeys(false);
-        } catch (NullPointerException e){
-            return Collections.emptySet();
+        try {
+            quitDB.removeItem(playerName);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
+    public static Collection<String> getQuitPlayers(){
+        return quitDB.keys;
+    }
     public static boolean hasQuitMessage(String playerName){
-        return c.getConfig().getString("QuitDB."+playerName) != null;
+        return quitDB.keys.contains(playerName);
     }
 }
