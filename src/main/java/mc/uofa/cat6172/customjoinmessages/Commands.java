@@ -56,6 +56,7 @@ public class Commands implements CommandExecutor {
                 }
                 case "reload" -> {
                     getPlugin(CustomJoinMessages.class).reloadConfig();
+                    Communication.sendCommandSender("Reloaded all join/leave message config", sender);
                     return true;
                 }
             }
