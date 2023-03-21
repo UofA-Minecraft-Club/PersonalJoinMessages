@@ -60,7 +60,7 @@ public class MessageStorage {
         }
         if (message == null) message = fallback;
         message = messageColor + message;
-        if (!groupColorCode.equals(messageColor) && !groupColorCode.equals("")){
+        if (!groupColorCode.equals("")){
             message = message.replace(playerName, "§"+groupColorCode+playerName+messageColor);
         }
         return message;
@@ -98,7 +98,7 @@ public class MessageStorage {
         }
         if (message == null) message = fallback;
         message = messageColor + message;
-        if (!groupColorCode.equals(messageColor) && !groupColorCode.equals("")){
+        if (!groupColorCode.equals("")){
             message = message.replace(playerName, "§"+groupColorCode+playerName+messageColor);
         }
         return message;
