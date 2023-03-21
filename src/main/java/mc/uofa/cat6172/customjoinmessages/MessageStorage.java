@@ -15,7 +15,7 @@ public class MessageStorage {
         ConfigurationSection groupColors = c.getConfig().getConfigurationSection("GroupColors");
         try{
             for (String groupName: groupColors.getKeys(false)) {
-                if (player.hasPermission(groupName+".group")){
+                if (player.hasPermission("group."+groupName)){
                     return groupColors.getString(groupName);
                 }
             }
@@ -60,11 +60,14 @@ public class MessageStorage {
         c.getConfig().set("QuitDB."+playerName, message);
         c.saveConfig();
     }
-    public static String getQuitMessage(String playerName){ //TODO fix when join works
+    public static String getQuitMessage(String playerName, String groupColorCode){
         String fallback = "ERROR: No leave message exists for given player: " + playerName;
         String message = c.getConfig().getString("QuitDB." + playerName, fallback);
-        //return Component.text(message, messageColor);
-        return "no leave msg";
+        message = messageColor + message;
+        if (!groupColorCode.equals(messageColor) && !groupColorCode.equals("")){
+            message = message.replace(playerName, "§"+groupColorCode+playerName+messageColor);
+        }
+        return message;
     }
     public static void removeQuitMessage(String playerName){
         c.getConfig().set("QuitDB."+playerName, null);

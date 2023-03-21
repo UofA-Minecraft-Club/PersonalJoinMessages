@@ -11,16 +11,19 @@ public class Listeners implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        String groupColor = MessageStorage.getGroupColor(player);
-        if (MessageStorage.hasJoinMessage(player.getName())){
-            event.joinMessage(Component.text(MessageStorage.getJoinMessage(player.getName(), groupColor)));
+        String playerName = event.getPlayer().getName();
+        if (MessageStorage.hasJoinMessage(playerName)){
+            String groupColor = MessageStorage.getGroupColor(player);
+            event.joinMessage(Component.text(MessageStorage.getJoinMessage(playerName, groupColor)));
         }
     }
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event){
+        Player player = event.getPlayer();
         String playerName = event.getPlayer().getName();
         if (MessageStorage.hasQuitMessage(playerName)){
-            event.quitMessage(Component.text(MessageStorage.getQuitMessage(playerName)));
+            String groupColor = MessageStorage.getGroupColor(player);
+            event.quitMessage(Component.text(MessageStorage.getQuitMessage(playerName, groupColor)));
         }
     }
 }

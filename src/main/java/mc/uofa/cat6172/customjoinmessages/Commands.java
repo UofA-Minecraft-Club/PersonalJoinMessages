@@ -43,7 +43,7 @@ public class Commands implements CommandExecutor {
                     String playerName = args[1];
                     String message;
                     if (join) message = MessageStorage.getJoinMessage(playerName, "");
-                    else message = MessageStorage.getQuitMessage(playerName);
+                    else message = MessageStorage.getQuitMessage(playerName, "");
                     Communication.sendCommandSender(message, sender);
                     return true;
                 }
