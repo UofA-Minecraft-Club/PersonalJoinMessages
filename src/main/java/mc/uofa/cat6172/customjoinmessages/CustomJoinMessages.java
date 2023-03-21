@@ -13,6 +13,7 @@ public class CustomJoinMessages extends JavaPlugin {
     }
 
     private void checkErrors() {
+        Communication.sendConsole("Initializing commands...");
         try{
             getCommand("joinmessage").setExecutor(new Commands());
         } catch (NullPointerException e){
@@ -23,9 +24,11 @@ public class CustomJoinMessages extends JavaPlugin {
         } catch (NullPointerException e){
             throw new Error("Command leavemessage failed to initialize, this is likely an internal problem with plugin.yml file");
         }
+        Communication.sendConsole("Initializing groups...");
         if (this.getConfig().getConfigurationSection("GroupColors") == null){
             throw new Error("Group colors failed to initialize, does the config file contain GroupColors section?");
         }
+        Communication.sendConsole("Accessing database...");
         try{
             MessageStorage.loadMessages();
         } catch (Exception e){

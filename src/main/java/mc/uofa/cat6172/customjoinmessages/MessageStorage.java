@@ -24,6 +24,7 @@ public class MessageStorage {
         Files.createDirectories(Paths.get(datafolder));
         joinDB = new SQLHashtable(datafolder+"join_messages.sqlite", "join_table", datafolder+"join_messages.keys");
         quitDB = new SQLHashtable(datafolder+"leave_messages.sqlite", "leave_table", datafolder+"leave_messages.keys");
+        Communication.sendConsole("Databases successfully initialized");
     }
 
     public static String getGroupColor(Player player){
