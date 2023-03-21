@@ -1,8 +1,9 @@
 package mc.uofa.cat6172.customjoinmessages;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
+
+import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,10 +12,13 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class MessageStorage {
-    private static final NamedTextColor messageColor = NamedTextColor.YELLOW;
     private static final String datafolder = "custom_join_leave_messages\\";
     private static SQLHashtable joinDB;
     private static SQLHashtable quitDB;
+
+    private static final String messageColor = "§e"; //yellow
+
+    private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
 
     public static void loadMessages() throws SQLException, IOException, ClassNotFoundException {
         Files.createDirectories(Paths.get(datafolder));
@@ -22,8 +26,22 @@ public class MessageStorage {
         quitDB = new SQLHashtable(datafolder+"leave_messages.sqlite", "leave_table", datafolder+"leave_messages.keys");
     }
 
+    public static String getGroupColor(Player player){
+        ConfigurationSection groupColors = c.getConfig().getConfigurationSection("GroupColors");
+        try{
+            for (String groupName: groupColors.getKeys(false)) {
+                if (player.hasPermission("group."+groupName)){
+                    return groupColors.getString(groupName);
+                }
+            }
+        }
+        catch (NullPointerException e){
+            Communication.sendConsole("Potential error: no groups found in config. Group colors will not be applied");
+            return messageColor;
+        }
+        return messageColor;
 
-
+    }
     public static void setJoinMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
         try {
@@ -32,16 +50,20 @@ public class MessageStorage {
             throw new RuntimeException(e);
         }
     }
-    public static TextComponent getJoinMessage(String playerName){
-        String message;
+    public static String getJoinMessage(String playerName, String groupColorCode){
         String fallback = "No join message exists for given player: " + playerName;
+        String message;
         try {
             message = joinDB.getItem(playerName);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         if (message == null) message = fallback;
-        return Component.text(message, messageColor);
+        message = messageColor + message;
+        if (!groupColorCode.equals(messageColor) && !groupColorCode.equals("")){
+            message = message.replace(playerName, "§"+groupColorCode+playerName+messageColor);
+        }
+        return message;
     }
     public static void removeJoinMessage(String playerName){
         try {
@@ -66,16 +88,20 @@ public class MessageStorage {
             throw new RuntimeException(e);
         }
     }
-    public static TextComponent getQuitMessage(String playerName){
-        String message;
+    public static String getQuitMessage(String playerName, String groupColorCode){
         String fallback = "No leave message exists for given player: " + playerName;
+        String message;
         try {
             message = quitDB.getItem(playerName);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         if (message == null) message = fallback;
-        return Component.text(message, messageColor);
+        message = messageColor + message;
+        if (!groupColorCode.equals(messageColor) && !groupColorCode.equals("")){
+            message = message.replace(playerName, "§"+groupColorCode+playerName+messageColor);
+        }
+        return message;
     }
     public static void removeQuitMessage(String playerName){
         try {

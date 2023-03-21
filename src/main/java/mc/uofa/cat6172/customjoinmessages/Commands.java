@@ -1,12 +1,13 @@
 package mc.uofa.cat6172.customjoinmessages;
 
-import net.kyori.adventure.text.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
+
+import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
 public class Commands implements CommandExecutor {
     @Override
@@ -40,10 +41,10 @@ public class Commands implements CommandExecutor {
                 }
                 case "get" -> {
                     String playerName = args[1];
-                    TextComponent message;
-                    if (join) message = MessageStorage.getJoinMessage(playerName);
-                    else message = MessageStorage.getQuitMessage(playerName);
-                    Communication.sendCommandSender(message.content(), sender);
+                    String message;
+                    if (join) message = MessageStorage.getJoinMessage(playerName, "");
+                    else message = MessageStorage.getQuitMessage(playerName, "");
+                    Communication.sendCommandSender(message, sender);
                     return true;
                 }
                 case "list" -> {
@@ -51,6 +52,10 @@ public class Commands implements CommandExecutor {
                     if (join) messageOwners = MessageStorage.getJoinPlayers();
                     else messageOwners = MessageStorage.getQuitPlayers();
                     Communication.sendCommandSender(messageOwners.toString(), sender);
+                    return true;
+                }
+                case "reload" -> {
+                    getPlugin(CustomJoinMessages.class).reloadConfig();
                     return true;
                 }
             }

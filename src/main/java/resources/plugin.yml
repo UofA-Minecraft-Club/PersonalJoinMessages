@@ -1,5 +1,5 @@
 name: CustomJoinMessages
-version: '1.1'
+version: '1.2'
 main: mc.uofa.cat6172.customjoinmessages.CustomJoinMessages
 description: Custom join messages for some players of the UofA MC server
 author: Ilya Nalivaiko (Cat6172)
@@ -8,11 +8,11 @@ api-version: '1.19'
 commands:
   joinmessage:
     description: customise a players join message
-    usage: /joinmessage [set playername message] or [remove playername] or [get playername] or [list]
+    usage: /joinmessage [set playername message] or [remove playername] or [get playername] or [list] or [reload]
     permission: joinmessage.admin
   leavemessage:
     description: customise a players leave message
-    usage: /leavemessage [set playername message] or [remove playername] or [get playername] or [list]
+    usage: /leavemessage [set playername message] or [remove playername] or [get playername] or [list] or [reload]
     permission: joinmessage.admin
 permissions:
   joinmessage.admin:
