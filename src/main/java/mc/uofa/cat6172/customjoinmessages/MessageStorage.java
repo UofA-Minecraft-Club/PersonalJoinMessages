@@ -43,8 +43,11 @@ public class MessageStorage {
         return messageColor;
 
     }
+
+
     public static void setJoinMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
+        if (hasJoinMessage(playerName)) removeJoinMessage(playerName); // fix to a problem that shouldn't happen.
         try {
             joinDB.setItem(playerName, message);
         } catch (Exception e) {
@@ -83,6 +86,7 @@ public class MessageStorage {
 
     public static void setQuitMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
+        if (hasQuitMessage(playerName)) removeQuitMessage(playerName);
         try {
             quitDB.setItem(playerName, message);
         } catch (Exception e) {
