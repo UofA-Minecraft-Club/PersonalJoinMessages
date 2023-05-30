@@ -10,6 +10,9 @@ public class Communication {
     public static void sendConsole(String message){
         getPlugin(CustomJoinMessages.class).getLogger().info(message);
     }
+    public static void sendError(String message){
+        getPlugin(CustomJoinMessages.class).getLogger().warning(message);
+    }
     public static void sendCommandSender(String message,  CommandSender receiver){
         if (receiver instanceof Player){
             receiver.sendMessage(message);

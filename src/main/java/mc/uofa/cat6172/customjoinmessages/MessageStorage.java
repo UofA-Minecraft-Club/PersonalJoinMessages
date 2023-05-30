@@ -13,8 +13,7 @@ import java.util.Collection;
 
 public class MessageStorage {
     private static final String datafolder = "custom_join_leave_messages\\";
-    private static SQLHashtable joinDB;
-    private static SQLHashtable quitDB;
+    private static SQLiteAccess database;
 
     private static final String messageColor = "§e"; //yellow
 
@@ -22,8 +21,7 @@ public class MessageStorage {
 
     public static void loadMessages() throws SQLException, IOException, ClassNotFoundException {
         Files.createDirectories(Paths.get(datafolder));
-        joinDB = new SQLHashtable(datafolder+"join_messages.sqlite", "join_table", datafolder+"join_messages.keys");
-        quitDB = new SQLHashtable(datafolder+"leave_messages.sqlite", "leave_table", datafolder+"leave_messages.keys");
+        database = new SQLiteAccess(datafolder+"message_database.sqlite", "join_leave_messages");
         Communication.sendConsole("Databases successfully initialized");
     }
 
@@ -37,7 +35,7 @@ public class MessageStorage {
             }
         }
         catch (NullPointerException e){
-            Communication.sendConsole("Potential error: no groups found in config. Group colors will not be applied");
+            Communication.sendError("No groups found in config. Group colors will not be applied. Plugin will continue to function");
             return messageColor;
         }
         return messageColor;
@@ -46,7 +44,7 @@ public class MessageStorage {
     public static void setJoinMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
         try {
-            joinDB.setItem(playerName, message);
+            database.putJoin(playerName, message);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -55,7 +53,7 @@ public class MessageStorage {
         String fallback = "No join message exists for given player: " + playerName;
         String message;
         try {
-            message = joinDB.getItem(playerName);
+            message = database.getJoin(playerName);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -68,23 +66,27 @@ public class MessageStorage {
     }
     public static void removeJoinMessage(String playerName){
         try {
-            joinDB.removeItem(playerName);
+            database.putQuit(playerName, null);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     public static Collection<String> getJoinPlayers(){
-        return joinDB.keys;
+        try {
+            return database.getKeysWithNonNullJoin();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public static boolean hasJoinMessage(String playerName){
-        return joinDB.keys.contains(playerName);
+        return getJoinPlayers().contains(playerName);
     }
 
 
     public static void setQuitMessage(String playerName, String message_raw){
         String message = message_raw.replace("_", " ").replace("\\&", "§");
         try {
-            quitDB.setItem(playerName, message);
+            database.putQuit(playerName, message);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -93,7 +95,7 @@ public class MessageStorage {
         String fallback = "No leave message exists for given player: " + playerName;
         String message;
         try {
-            message = quitDB.getItem(playerName);
+            message = database.getQuit(playerName);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -106,15 +108,19 @@ public class MessageStorage {
     }
     public static void removeQuitMessage(String playerName){
         try {
-            quitDB.removeItem(playerName);
+            database.putQuit(playerName, null);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     public static Collection<String> getQuitPlayers(){
-        return quitDB.keys;
+        try {
+            return database.getKeysWithNonNullQuit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public static boolean hasQuitMessage(String playerName){
-        return quitDB.keys.contains(playerName);
+        return getQuitPlayers().contains(playerName);
     }
 }
