@@ -4,12 +4,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CustomJoinMessages extends JavaPlugin {
-    public Listeners listeners = new Listeners();
+    public final Listeners listeners = new Listeners();
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(listeners, this);
         this.saveDefaultConfig();
         checkErrors();
+        cleanup();
     }
 
     private void checkErrors() {
@@ -34,6 +35,11 @@ public class CustomJoinMessages extends JavaPlugin {
         } catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+
+    private void cleanup() {
+        int rowsDeleted = MessageStorage.cleanup();
+        if (rowsDeleted > 0) Communication.sendConsole("Removed " + rowsDeleted + " null rows from the database");
     }
 
 }

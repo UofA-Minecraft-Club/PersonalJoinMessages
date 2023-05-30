@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class SQLiteAccess {
     private Connection connection; // Connection object to interact with the database
-    private String tableName; // Name of the table in the database
+    private final String tableName; // Name of the table in the database
 
     public SQLiteAccess(String dbName, String tableName) {
         this.tableName = tableName;
@@ -95,24 +95,10 @@ public class SQLiteAccess {
         return getValue(name, "quit");
     }
 
-    // Deletes an entry with the given key from the database
-    private void delete(String name) throws SQLException {
-        String deleteQuery = "DELETE FROM " + tableName + " WHERE name = ?";
-        PreparedStatement statement = connection.prepareStatement(deleteQuery);
-        statement.setString(1, name);
-        statement.executeUpdate();
-    }
-
-    public Set<String> getAllKeys() throws SQLException {
-        Set<String> keys = new HashSet<>();
-        String selectQuery = "SELECT name FROM " + tableName;
-        PreparedStatement statement = connection.prepareStatement(selectQuery);
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            String key = resultSet.getString("name");
-            keys.add(key);
-        }
-        return keys;
+    public int deleteEntriesWithNullValues() throws SQLException {
+        String deleteQuery = "DELETE FROM " + tableName + " WHERE login IS NULL AND quit IS NULL";
+        Statement statement = connection.createStatement();
+        return statement.executeUpdate(deleteQuery);
     }
 
     public Set<String> getKeysWithNonNullJoin() throws SQLException {

@@ -19,10 +19,10 @@ public class MessageStorage {
 
     private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
 
-    public static void loadMessages() throws SQLException, IOException, ClassNotFoundException {
+    public static void loadMessages() throws IOException {
         Files.createDirectories(Paths.get(datafolder));
         database = new SQLiteAccess(datafolder+"message_database.sqlite", "join_leave_messages");
-        Communication.sendConsole("Databases successfully initialized");
+        Communication.sendConsole("Database successfully initialized");
     }
 
     public static String getGroupColor(Player player){
@@ -66,7 +66,7 @@ public class MessageStorage {
     }
     public static void removeJoinMessage(String playerName){
         try {
-            database.putQuit(playerName, null);
+            database.putJoin(playerName, null);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -122,5 +122,13 @@ public class MessageStorage {
     }
     public static boolean hasQuitMessage(String playerName){
         return getQuitPlayers().contains(playerName);
+    }
+
+    public static int cleanup() {
+        try {
+            return database.deleteEntriesWithNullValues();
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }
