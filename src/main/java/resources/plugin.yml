@@ -1,6 +1,6 @@
-name: CustomJoinMessages
+name: PersonalJoinMessages
 version: '1.3'
-main: mc.uofa.cat6172.customjoinmessages.CustomJoinMessages
+main: cat6172.personaljoinmessages
 description: Custom join messages for some players of the UofA MC server
 author: Ilya Nalivaiko (Cat6172)
 api-version: '1.19'

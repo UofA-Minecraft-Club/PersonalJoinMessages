@@ -1,4 +1,4 @@
-package mc.uofa.cat6172.customjoinmessages;
+package cat6172.personaljoinmessages;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class MessageStorage {
 
     private static final String messageColor = "§e"; //yellow
 
-    private static final CustomJoinMessages c = getPlugin(CustomJoinMessages.class);
+    private static final PersonalJoinMessages c = getPlugin(PersonalJoinMessages.class);
 
     public static void loadMessages() throws IOException {
         Files.createDirectories(Paths.get(datafolder));

@@ -1,9 +1,9 @@
-package mc.uofa.cat6172.customjoinmessages;
+package cat6172.personaljoinmessages;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CustomJoinMessages extends JavaPlugin {
+public class PersonalJoinMessages extends JavaPlugin {
     public final Listeners listeners = new Listeners();
     @Override
     public void onEnable() {

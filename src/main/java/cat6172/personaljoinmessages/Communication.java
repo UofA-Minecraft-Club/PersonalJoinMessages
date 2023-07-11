@@ -1,4 +1,4 @@
-package mc.uofa.cat6172.customjoinmessages;
+package cat6172.personaljoinmessages;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -8,10 +8,10 @@ import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
 public class Communication {
     public static void sendConsole(String message){
-        getPlugin(CustomJoinMessages.class).getLogger().info(message);
+        getPlugin(PersonalJoinMessages.class).getLogger().info(message);
     }
     public static void sendError(String message){
-        getPlugin(CustomJoinMessages.class).getLogger().warning(message);
+        getPlugin(PersonalJoinMessages.class).getLogger().warning(message);
     }
     public static void sendCommandSender(String message,  CommandSender receiver){
         if (receiver instanceof Player){

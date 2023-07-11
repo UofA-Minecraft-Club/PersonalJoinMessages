@@ -1,4 +1,4 @@
-package mc.uofa.cat6172.customjoinmessages;
+package cat6172.personaljoinmessages;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -55,7 +55,7 @@ public class Commands implements CommandExecutor {
                     return true;
                 }
                 case "reload" -> {
-                    getPlugin(CustomJoinMessages.class).reloadConfig();
+                    getPlugin(PersonalJoinMessages.class).reloadConfig();
                     Communication.sendCommandSender("Reloaded all join/leave message config", sender);
                     return true;
                 }

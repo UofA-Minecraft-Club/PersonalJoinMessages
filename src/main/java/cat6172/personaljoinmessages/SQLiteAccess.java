@@ -1,4 +1,4 @@
-package mc.uofa.cat6172.customjoinmessages;
+package cat6172.personaljoinmessages;
 
 import java.io.File;
 import java.sql.*;

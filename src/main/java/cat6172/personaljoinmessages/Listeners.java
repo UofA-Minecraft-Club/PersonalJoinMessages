@@ -1,4 +1,4 @@
-package mc.uofa.cat6172.customjoinmessages;
+package cat6172.personaljoinmessages;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
