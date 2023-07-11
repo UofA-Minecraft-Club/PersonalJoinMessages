@@ -1,9 +1,9 @@
 name: PersonalJoinMessages
 version: '1.0'
 main: cat6172.personaljoinmessages
-description: Custom join messages for some players of the UofA MC server
+description: Personalized per-player join messages
 author: Cat6172
-api-version: '1.20
+api-version: '1.20'
 
 commands:
   joinmessage:
@@ -16,5 +16,5 @@ commands:
     permission: joinmessage.admin
 permissions:
   joinmessage.admin:
-    description: allows customising a player's join and leave message
+    description: allows customising a players join and leave message
     default: op

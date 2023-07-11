@@ -6,9 +6,8 @@ group = "org.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    maven {
-        url = uri("https://repo.papermc.io/repository/maven-public/")
-    }
+    mavenCentral()
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
@@ -16,5 +15,4 @@ dependencies {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
-}
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))}
