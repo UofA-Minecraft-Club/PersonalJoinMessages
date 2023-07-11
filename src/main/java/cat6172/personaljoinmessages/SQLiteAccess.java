@@ -6,20 +6,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SQLiteAccess {
-    private Connection connection; // Connection object to interact with the database
-    private final String tableName; // Name of the table in the database
+    private Connection connection;
+    private final String tableName;
 
     public SQLiteAccess(String dbName, String tableName) {
         this.tableName = tableName;
         try {
-            Class.forName("org.sqlite.JDBC"); // Load the SQLite JDBC driver
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName); // Connect to the database
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
-            // Check if the database file exists
             File dbFile = new File(dbName);
             boolean fileExists = dbFile.exists();
 
-            // If the file doesn't exist, create a new database file
             if (!fileExists) {
                 connection.createStatement().execute("CREATE DATABASE " + dbName);
             }
@@ -30,15 +28,12 @@ public class SQLiteAccess {
         }
     }
 
-    // Creates the table if it doesn't already exist
     private void initializeTable() throws SQLException {
         String createTableQuery = "CREATE TABLE IF NOT EXISTS " + tableName + " (name TEXT PRIMARY KEY, login TEXT, quit TEXT)";
         Statement statement = connection.createStatement();
         statement.execute(createTableQuery);
     }
 
-    // Sets the value of a given column for a given key in the database,
-    // and deletes the entry from the database if both "join" and "quit" values are null
     private void putValue(String name, String column, String value) throws SQLException {
         if (exists(name)) {
             String updateQuery = "UPDATE " + tableName + " SET " + column + " = ? WHERE name = ?";
@@ -63,17 +58,14 @@ public class SQLiteAccess {
         return resultSet.next();
     }
 
-    // Sets the "join" value for a given key in the database
     public void putJoin(String name, String join) throws SQLException {
         putValue(name, "login", join);
     }
 
-    // Sets the "quit" value for a given key in the database
     public void putQuit(String name, String quit) throws SQLException {
         putValue(name, "quit", quit);
     }
 
-    // Retrieves the value of a given column for a given key from the database
     private String getValue(String name, String column) throws SQLException {
         String selectQuery = "SELECT " + column + " FROM " + tableName + " WHERE name = ?";
         PreparedStatement statement = connection.prepareStatement(selectQuery);
@@ -85,12 +77,10 @@ public class SQLiteAccess {
         return null;
     }
 
-    // Retrieves the "join" value for a given key from the database
     public String getJoin(String name) throws SQLException {
         return getValue(name, "login");
     }
 
-    // Retrieves the "quit" value for a given key from the database
     public String getQuit(String name) throws SQLException {
         return getValue(name, "quit");
     }

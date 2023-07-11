@@ -1,6 +1,6 @@
 name: PersonalJoinMessages
 version: '1.0'
-main: cat6172.personaljoinmessages
+main: cat6172.personaljoinmessages.PersonalJoinMessages
 description: Personalized per-player join messages
 author: Cat6172
 api-version: '1.20'
