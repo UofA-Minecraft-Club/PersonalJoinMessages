@@ -43,14 +43,20 @@ public class MessageStorage {
     }
 
 
-    public static void setJoinMessage(String playerName, String message_raw){
-        String message = message_raw.replace("_", " ").replace("\\&", "§");
+    public static String setJoinMessage(String playerName, String[] args_full){
+        StringBuilder message_temp = new StringBuilder();
+        message_temp.append(args_full[2]);
+        for (int i=3; i<args_full.length; i++){
+            message_temp.append(" ").append(args_full[i]);
+        }
+        String message = message_temp.toString().replace("\\&", "§");
         if (hasJoinMessage(playerName)) removeJoinMessage(playerName); // fix to a problem that shouldn't happen.
         try {
             database.putJoin(playerName, message);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return message;
     }
     public static String getJoinMessage(String playerName, String groupColorCode){
         String fallback = "No join message exists for given player: " + playerName;
@@ -86,14 +92,20 @@ public class MessageStorage {
     }
 
 
-    public static void setQuitMessage(String playerName, String message_raw){
-        String message = message_raw.replace("_", " ").replace("\\&", "§");
+    public static String setQuitMessage(String playerName, String[] args_full){
+        StringBuilder message_temp = new StringBuilder();
+        message_temp.append(args_full[2]);
+        for (int i=3; i<args_full.length; i++){
+            message_temp.append(" ").append(args_full[i]);
+        }
+        String message = message_temp.toString().replace("\\&", "§");
         if (hasQuitMessage(playerName)) removeQuitMessage(playerName);
         try {
             database.putQuit(playerName, message);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return message;
     }
     public static String getQuitMessage(String playerName, String groupColorCode){
         String fallback = "No leave message exists for given player: " + playerName;

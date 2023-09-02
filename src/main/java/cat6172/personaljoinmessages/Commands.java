@@ -17,13 +17,13 @@ public class Commands implements CommandExecutor {
             switch (args[0]) {
                 case "set" -> {
                     String playerName = args[1];
-                    String message = args[2];
+                    String message;
                     if (join){
-                        MessageStorage.setJoinMessage(playerName, message);
-                        Communication.sendCommandSender("Set " + args[1] + "'s join message to: \"" + args[2] + "\"", sender);
+                        message = MessageStorage.setJoinMessage(playerName, args);
+                        Communication.sendCommandSender("Set " + args[1] + "'s join message to: \"" + message + "\"", sender);
                     } else{
-                        MessageStorage.setQuitMessage(playerName, message);
-                        Communication.sendCommandSender("Set " + args[1] + "'s leave message to: \"" + args[2] + "\"", sender);
+                        message = MessageStorage.setQuitMessage(playerName, args);
+                        Communication.sendCommandSender("Set " + args[1] + "'s leave message to: \"" + message + "\"", sender);
                     }
                     return true;
                 }
