@@ -4,7 +4,7 @@ Customise join/leave messages for each player individually
 Developed for the University of Alberta Minecraft Club, available for public use
 
 ## Usage
-- Download Individual_Join_Messages_1.20.jar above
+- Download Individual_Join_Messages_1.20.jar above (from Releases tab)
 - This plugin was tested on Paper 1.20.1. It should work on any 1.20 version.
 - Install the plugin
 - Run the server to generate config files and initialize database
