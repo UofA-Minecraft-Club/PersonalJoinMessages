@@ -1,5 +1,6 @@
 # IndividualJoinMessages
 Customise join/leave messages for each player individually
+
 Developed for the University of Alberta Minecraft Club, available for public use
 
 ## Usage
