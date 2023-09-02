@@ -35,6 +35,6 @@ To customize leave messages, use /leavemessage instead
  - /joinmessage reload and /leavemessage reload do the same thing
 
 
-### Known limitations (may be fixed in the future)
- - Underscores cannot be used in the message (they will be replaced with spaces)
+### Notes
  - A change in username will require re-doing the custom message
+ - Message will be yellow by default, but the color of the entire message or any part can be changed with Bukkit color codes
