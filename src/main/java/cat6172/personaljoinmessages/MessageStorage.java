@@ -30,7 +30,7 @@ public class MessageStorage {
         try{
             for (String groupName: groupColors.getKeys(false)) {
                 if (player.hasPermission("group."+groupName)){
-                    return groupColors.getString(groupName);
+                    return "§"+groupColors.getString(groupName);
                 }
             }
         }
@@ -69,7 +69,7 @@ public class MessageStorage {
         if (message == null) message = fallback;
         message = messageColor + message;
         if (!groupColorCode.equals("")){
-            message = message.replace(playerName, "§"+groupColorCode+playerName+messageColor);
+            message = message.replace(playerName, groupColorCode+playerName+messageColor);
         }
         return message;
     }
@@ -118,7 +118,7 @@ public class MessageStorage {
         if (message == null) message = fallback;
         message = messageColor + message;
         if (!groupColorCode.equals("")){
-            message = message.replace(playerName, "§"+groupColorCode+playerName+messageColor);
+            message = message.replace(playerName, groupColorCode+playerName+messageColor);
         }
         return message;
     }

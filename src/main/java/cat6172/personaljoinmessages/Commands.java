@@ -44,7 +44,7 @@ public class Commands implements CommandExecutor {
                     String message;
                     if (join) message = MessageStorage.getJoinMessage(playerName, "");
                     else message = MessageStorage.getQuitMessage(playerName, "");
-                    Communication.sendCommandSender(message, sender);
+                    Communication.sendCommandSender("Message: "+message, sender);
                     return true;
                 }
                 case "list" -> {
