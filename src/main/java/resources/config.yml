@@ -1,3 +1,5 @@
 GroupColors:
   moderator: 4
   helper: 3
+message_identifiers: 0
+replace_default: false
