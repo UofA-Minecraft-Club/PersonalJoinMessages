@@ -136,4 +136,9 @@ public class MessageStorage {
             throw new RuntimeException(e);
         }
     }
+
+    public static void close(){
+        database.close();
+        Communication.sendConsole("Safely closing Joinmessages SQLite database");
+    }
 }
