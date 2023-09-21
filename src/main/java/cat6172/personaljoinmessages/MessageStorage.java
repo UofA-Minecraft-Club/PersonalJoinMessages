@@ -43,13 +43,7 @@ public class MessageStorage {
     }
 
 
-    public static String setJoinMessage(String playerName, String[] args_full){
-        StringBuilder message_temp = new StringBuilder();
-        message_temp.append(args_full[2]);
-        for (int i=3; i<args_full.length; i++){
-            message_temp.append(" ").append(args_full[i]);
-        }
-        String message = message_temp.toString().replace("\\&", "§");
+    public static String setJoinMessage(String playerName, String message){
         if (hasJoinMessage(playerName)) removeJoinMessage(playerName); // fix to a problem that shouldn't happen.
         try {
             database.putJoin(playerName, message);
@@ -92,13 +86,8 @@ public class MessageStorage {
     }
 
 
-    public static String setQuitMessage(String playerName, String[] args_full){
-        StringBuilder message_temp = new StringBuilder();
-        message_temp.append(args_full[2]);
-        for (int i=3; i<args_full.length; i++){
-            message_temp.append(" ").append(args_full[i]);
-        }
-        String message = message_temp.toString().replace("\\&", "§");
+    public static String setQuitMessage(String playerName, String message){
+
         if (hasQuitMessage(playerName)) removeQuitMessage(playerName);
         try {
             database.putQuit(playerName, message);

@@ -14,7 +14,18 @@ commands:
     description: customise a players leave message
     usage: /leavemessage [set playername message] or [remove playername] or [get playername] or [list] or [reload]
     permission: joinmessage.admin
+  setjoinmessage:
+    description: customise own join message
+    usage: /setjoinmessage [message]
+    permission: joinmessage.self
+  setleavemessage:
+    description: customise own leave message
+    usage: /setleavemessage [message]
+    permission: joinmessage.self
 permissions:
   joinmessage.admin:
-    description: allows customising a players join and leave message
+    description: allows customising any players join and leave message
     default: op
+  joinmessage.self:
+    description: allows customizing own messages
+    default: false

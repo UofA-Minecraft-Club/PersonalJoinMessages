@@ -9,20 +9,26 @@ import java.util.Collection;
 
 import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
-public class Commands implements CommandExecutor {
+public class AdminCommands implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         boolean join = label.equals("joinmessage"); //else /leavemessage because that's what this is registered to
         try{
             switch (args[0]) {
                 case "set" -> {
-                    String playerName = args[1];
+                    String playerName = sender.getName();
+                    StringBuilder message_temp = new StringBuilder();
+                    message_temp.append(args[2]);
+                    for (int i=3; i<args.length; i++){
+                        message_temp.append(" ").append(args[i]);
+                    }
+                    String message_in = message_temp.toString().replace("\\&", "§");
                     String message;
                     if (join){
-                        message = MessageStorage.setJoinMessage(playerName, args);
+                        message = MessageStorage.setJoinMessage(playerName, message_in);
                         Communication.sendCommandSender("Set " + args[1] + "'s join message to: \"" + message + "\"", sender);
                     } else{
-                        message = MessageStorage.setQuitMessage(playerName, args);
+                        message = MessageStorage.setQuitMessage(playerName, message_in);
                         Communication.sendCommandSender("Set " + args[1] + "'s leave message to: \"" + message + "\"", sender);
                     }
                     return true;

@@ -16,14 +16,24 @@ public class PersonalJoinMessages extends JavaPlugin {
     private void checkErrors() {
         Communication.sendConsole("Initializing commands...");
         try{
-            getCommand("joinmessage").setExecutor(new Commands());
+            getCommand("joinmessage").setExecutor(new AdminCommands());
         } catch (NullPointerException e){
             throw new Error("Command joinmessage failed to initialize, this is likely an internal problem with plugin.yml file");
         }
         try{
-            getCommand("leavemessage").setExecutor(new Commands());
+            getCommand("leavemessage").setExecutor(new AdminCommands());
         } catch (NullPointerException e){
             throw new Error("Command leavemessage failed to initialize, this is likely an internal problem with plugin.yml file");
+        }
+        try{
+            getCommand("setjoinmessage").setExecutor(new SelfCommands());
+        } catch (NullPointerException e){
+            throw new Error("Command setjoinmessage failed to initialize, this is likely an internal problem with plugin.yml file");
+        }
+        try{
+            getCommand("setleavemessage").setExecutor(new SelfCommands());
+        } catch (NullPointerException e){
+            throw new Error("Command setleavemessage failed to initialize, this is likely an internal problem with plugin.yml file");
         }
         Communication.sendConsole("Initializing groups...");
         if (this.getConfig().getConfigurationSection("GroupColors") == null){
