@@ -16,7 +16,7 @@ public class AdminCommands implements CommandExecutor {
         try{
             switch (args[0]) {
                 case "set" -> {
-                    String playerName = sender.getName();
+                    String playerName = args[1];
                     StringBuilder message_temp = new StringBuilder();
                     message_temp.append(args[2]);
                     for (int i=3; i<args.length; i++){
