@@ -13,6 +13,10 @@ public class PersonalJoinMessages extends JavaPlugin {
         cleanup();
     }
 
+    public void onDisable() {
+        MessageStorage.close();
+    }
+
     private void checkErrors() {
         Communication.sendConsole("Initializing commands...");
         try{
