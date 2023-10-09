@@ -9,9 +9,11 @@ Developed for the University of Alberta Minecraft Club, available for public use
 - Install the plugin
 - Run the server to generate config files and initialize database
 - Use in-game or server console commands to set players' messages (see below)
-- Use the config file to cusomize role colors
+- Use the config file to:
+  - Customize role colors in messages
+  - Change when identifier tags should appear (0=never, 1=when username not in message, 2=always)
 
-## Commands
+## Admin Commands
 /joinmessage set [username] [message]
  - The message can contain spaces as normal
  - Type the entire message, including the player's username (technically optional)
@@ -33,6 +35,11 @@ Developed for the University of Alberta Minecraft Club, available for public use
 
 To customize leave messages, use /leavemessage instead
  - /joinmessage reload and /leavemessage reload do the same thing
+
+## Player Commands
+- Requires the joinmessage.self permission node, not granted to anyone by default, use luckperms or similar plugin
+- /setjoinmessage [message] and /setleavemessage [message] sets the player's join/leave messages
+- Cannot be used by console
 
 
 ### Notes
