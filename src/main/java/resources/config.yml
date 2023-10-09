@@ -1,5 +1,12 @@
+#customize role colors in the form
+#[group name]: [bukkit color code]
 GroupColors:
   moderator: 4
   helper: 3
+#Change when custom messages will be given a tag in the form
+#[+username] custom message
+#0=never, 1=when username not in message, 2=always
 message_identifiers: 0
+#replace default join/leave messages with [+username] and [-username]
+#meant for consistency with above set to 2
 replace_default: false
