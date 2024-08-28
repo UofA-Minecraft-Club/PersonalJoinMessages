@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class MessageStorage {
     public static String datafolder;
-    private static SQLiteAccess database;
+    private static DatabaseAccess database;
 
     private static final String messageColor = "§e"; //yellow
 
