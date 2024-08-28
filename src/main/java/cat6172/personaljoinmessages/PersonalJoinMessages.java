@@ -7,6 +7,7 @@ public class PersonalJoinMessages extends JavaPlugin {
     public final Listeners listeners = new Listeners();
     @Override
     public void onEnable() {
+        MessageStorage.datafolder = getDataFolder().getAbsolutePath();
         Bukkit.getPluginManager().registerEvents(listeners, this);
         this.saveDefaultConfig();
         checkErrors();

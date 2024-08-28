@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class MessageStorage {
-    private static final String datafolder = "custom_join_leave_messages\\";
+    public static String datafolder;
     private static SQLiteAccess database;
 
     private static final String messageColor = "§e"; //yellow
@@ -21,7 +21,7 @@ public class MessageStorage {
 
     public static void loadMessages() throws IOException {
         Files.createDirectories(Paths.get(datafolder));
-        database = new SQLiteAccess(datafolder+"message_database.sqlite", "join_leave_messages");
+        database = new SQLiteAccess(datafolder+System.getProperty("file.separator")+"message_database.sqlite", "join_leave_messages");
         Communication.sendConsole("Database successfully initialized");
     }
 
