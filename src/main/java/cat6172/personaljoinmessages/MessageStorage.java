@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -20,7 +18,6 @@ public class MessageStorage {
     private static final PersonalJoinMessages c = getPlugin(PersonalJoinMessages.class);
 
     public static void loadMessages() throws IOException {
-        Files.createDirectories(Paths.get(datafolder));
         String connString = "jdbc:sqlite:" + datafolder + System.getProperty("file.separator") + "message_database.sqlite";
         database = new SQLiteAccess(connString, "join_leave_messages");
         Communication.sendConsole("Database successfully initialized");
