@@ -5,16 +5,17 @@ import java.sql.*;
 
 public class SQLiteAccess extends DatabaseAccess {
 
-    public SQLiteAccess(String dbName, String tableName) {
-        super(dbName, tableName);
+    public SQLiteAccess(String connectionString, String tableName) {
+        super(connectionString, tableName);
     }
 
     @Override
-    protected void connect(String dbName) throws SQLException {
+    protected void connect(String connectionString) throws SQLException {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+            connection = DriverManager.getConnection(connectionString);
 
+            String dbName = connectionString.split(":")[2];
             File dbFile = new File(dbName);
             boolean fileExists = dbFile.exists();
 

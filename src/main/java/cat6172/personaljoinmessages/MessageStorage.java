@@ -21,7 +21,8 @@ public class MessageStorage {
 
     public static void loadMessages() throws IOException {
         Files.createDirectories(Paths.get(datafolder));
-        database = new SQLiteAccess(datafolder+System.getProperty("file.separator")+"message_database.sqlite", "join_leave_messages");
+        String connString = "jdbc:sqlite:" + datafolder + System.getProperty("file.separator") + "message_database.sqlite";
+        database = new SQLiteAccess(connString, "join_leave_messages");
         Communication.sendConsole("Database successfully initialized");
     }
 
@@ -139,6 +140,6 @@ public class MessageStorage {
 
     public static void close(){
         database.close();
-        Communication.sendConsole("Safely closing Joinmessages SQLite database");
+        Communication.sendConsole("Safely closing Joinmessages database");
     }
 }

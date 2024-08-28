@@ -8,17 +8,17 @@ public abstract class DatabaseAccess {
     protected Connection connection;
     protected final String tableName;
 
-    public DatabaseAccess(String dbName, String tableName) {
+    public DatabaseAccess(String connectionString, String tableName) {
         this.tableName = tableName;
         try {
-            connect(dbName);
+            connect(connectionString);
             initializeTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    protected abstract void connect(String dbName) throws SQLException;
+    protected abstract void connect(String connectionString) throws SQLException;
 
     protected abstract void initializeTable() throws SQLException;
 
