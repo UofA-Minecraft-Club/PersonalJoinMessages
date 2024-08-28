@@ -1,2 +1,2 @@
-rootProject.name = "CustomJoinMessages"
+rootProject.name = "PersonalJoinMessages"
 
