@@ -10,3 +10,9 @@ message_identifiers: 0
 #replace default join/leave messages with [+username] and [-username]
 #meant for consistency with above set to 2
 replace_default: false
+
+# Database connection details
+# Fill in for MySQL or custom SQLite path. leave blank for default (SQLite)
+jdbc: ""
+# DB table name
+tablename: "join_leave_messages"

@@ -17,10 +17,21 @@ public class MessageStorage {
 
     private static final PersonalJoinMessages c = getPlugin(PersonalJoinMessages.class);
 
-    public static void loadMessages() throws IOException {
-        String connString = "jdbc:sqlite:" + datafolder + System.getProperty("file.separator") + "message_database.sqlite";
-        database = new SQLiteAccess(connString, "join_leave_messages");
-        Communication.sendConsole("Database successfully initialized");
+    public static void loadMessages() {
+        String connString = c.getConfig().getString("jdbc", "");
+        String tableName = c.getConfig().getString("tablename", "join_leave_messages");
+
+        try {
+            if (connString.equals("")){
+                connString = "jdbc:sqlite:" + datafolder + System.getProperty("file.separator") + "message_database.sqlite";
+                database = new SQLiteAccess(connString, tableName);
+            } else {
+                database = new MySQLAccess(connString, tableName);
+            }
+            Communication.sendConsole("Database successfully initialized");
+        } catch (Exception e) {
+            Communication.sendError(e.getMessage());
+        }
     }
 
     public static String getGroupColor(Player player){
