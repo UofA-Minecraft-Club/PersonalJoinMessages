@@ -5,6 +5,8 @@ description: Personalized per-player join messages
 author: Cat6172
 api-version: '1.21'
 
+softdepend: ["PlaceholderAPI"]
+
 commands:
   joinmessage:
     description: customise a players join message
@@ -28,4 +30,7 @@ permissions:
     default: op
   joinmessage.self:
     description: allows customizing own messages
+    default: false
+  joinmessage.placeholders:
+    description: allows this user's messages to have their placeholders replaced
     default: false

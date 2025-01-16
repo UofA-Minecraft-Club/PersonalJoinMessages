@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 
 import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
