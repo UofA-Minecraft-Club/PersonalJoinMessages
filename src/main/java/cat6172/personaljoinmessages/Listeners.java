@@ -60,6 +60,13 @@ public class Listeners implements Listener {
             if ((clarity == 1 && !message.contains(playerName)) || clarity == 2) { //add if message owner is not obvious
                 message = "§c[-"+playerName+"] "+message;
             }
+            if (player.hasPermission("joinmessage.placeholders")){
+                if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+                    message = PlaceholderAPI.setPlaceholders(player, message);
+                } else {
+                    Bukkit.getLogger().warning("A message tried to use a placeholder, but PAPI was not installed and enabled");
+                }
+            }
             event.quitMessage(Component.text(message));
         } else if (replaceDefault){
             event.quitMessage(Component.text("§c[-"+playerName+"]"));
