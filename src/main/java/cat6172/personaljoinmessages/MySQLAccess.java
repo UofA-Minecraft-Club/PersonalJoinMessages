@@ -20,7 +20,7 @@ public class MySQLAccess extends DatabaseAccess {
 
     @Override
     protected void initializeTable() throws SQLException {
-        String createTableQuery = "CREATE TABLE IF NOT EXISTS " + tableName + " (name VARCHAR(255) PRIMARY KEY, login TEXT, quit TEXT)";
+        String createTableQuery = "CREATE TABLE IF NOT EXISTS " + tableName + " (name VARCHAR(255) PRIMARY KEY, login VARCHAR(255), quit VARCHAR(255))";
         Statement statement = connection.createStatement();
         statement.execute(createTableQuery);
     }

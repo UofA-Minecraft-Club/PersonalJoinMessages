@@ -26,10 +26,12 @@ public class AdminCommands implements CommandExecutor {
                     String message;
                     if (join){
                         message = MessageStorage.setJoinMessage(playerName, message_in);
-                        Communication.sendCommandSender("Set " + args[1] + "'s join message to: \"" + message + "\"", sender);
+                        if (message == null) Communication.sendCommandSender("§cInvalid message", sender);
+                        else Communication.sendCommandSender("Set " + args[1] + "'s join message to: \"" + message + "\"", sender);
                     } else{
                         message = MessageStorage.setQuitMessage(playerName, message_in);
-                        Communication.sendCommandSender("Set " + args[1] + "'s leave message to: \"" + message + "\"", sender);
+                        if (message == null) Communication.sendCommandSender("§cInvalid message", sender);
+                        else Communication.sendCommandSender("Set " + args[1] + "'s leave message to: \"" + message + "\"", sender);
                     }
                     return true;
                 }

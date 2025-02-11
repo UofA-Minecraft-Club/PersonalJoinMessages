@@ -53,6 +53,12 @@ public class MessageStorage {
 
     public static String setJoinMessage(String playerName, String message){
         if (hasJoinMessage(playerName)) removeJoinMessage(playerName); // fix to a problem that shouldn't happen.
+
+        //enforce size limit
+        if (message.length() > 255){
+            return null;
+        }
+
         try {
             database.putJoin(playerName, message);
         } catch (Exception e) {
@@ -97,6 +103,12 @@ public class MessageStorage {
     public static String setQuitMessage(String playerName, String message){
 
         if (hasQuitMessage(playerName)) removeQuitMessage(playerName);
+
+        //enforce size limit
+        if (message.length() > 255){
+            return null;
+        }
+
         try {
             database.putQuit(playerName, message);
         } catch (Exception e) {

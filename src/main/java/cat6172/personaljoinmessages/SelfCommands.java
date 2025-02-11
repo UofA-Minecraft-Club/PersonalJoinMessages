@@ -22,10 +22,12 @@ public class SelfCommands implements CommandExecutor {
             String message;
             if (join){
                 message = MessageStorage.setJoinMessage(playerName, message_in);
-                Communication.sendCommandSender("Set your join message to: " + message, sender);
+                if (message == null) Communication.sendCommandSender("§cInvalid message", sender);
+                else Communication.sendCommandSender("Set your join message to: " + message, sender);
             } else{
                 message = MessageStorage.setQuitMessage(playerName, message_in);
-                Communication.sendCommandSender("Set your leave message to: " + message, sender);
+                if (message == null) Communication.sendCommandSender("§cInvalid message", sender);
+                else Communication.sendCommandSender("Set your leave message to: " + message, sender);
             }
             return true;
         } catch (IndexOutOfBoundsException e){
