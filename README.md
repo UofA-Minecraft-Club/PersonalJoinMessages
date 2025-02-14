@@ -5,7 +5,7 @@ Developed for the University of Alberta Minecraft Club, available for public use
 
 ## Usage
 - Download the latest jar above (from Releases tab)
-- This plugin was tested on Paper 1.20.1. It should work on any 1.20 version.
+- This plugin was tested on Paper 1.21.1
 - Install the plugin
 - Run the server to generate config files and initialize database
 - Use in-game or server console commands to set players' messages (see below)
@@ -40,6 +40,10 @@ To customize leave messages, use /leavemessage instead
 - Requires the joinmessage.self permission node, not granted to anyone by default, use luckperms or similar plugin
 - /setjoinmessage [message] and /setleavemessage [message] sets the player's join/leave messages
 - Cannot be used by console
+
+## PlaceholderAPI Support
+- Requires the joinmessage.placeholders permission for the player who's message it is
+- Simply use placeholders in the message and they will be parsed when displayed
 
 
 ### Notes
